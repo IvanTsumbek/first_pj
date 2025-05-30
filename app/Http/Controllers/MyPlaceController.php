@@ -6,7 +6,5 @@ use Illuminate\Http\Request;
 
 class MyPlaceController extends Controller
 {
-   public function index(){
-    return 'this is my page';
-}
+   public function function () {return 'how to learn our corses?'; }
 }
