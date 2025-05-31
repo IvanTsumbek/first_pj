@@ -9,3 +9,4 @@ Route::get('/about', 'App\Http\Controllers\AboutController@index');
 Route::get('/serveces', 'App\Http\Controllers\ServecesController@index');
 Route::get('/support', 'App\Http\Controllers\SupportController@index');
 Route::get('/education', 'App\Http\Controllers\EducationController@index'); 
+Route::get('/our_partners', 'App\Http\Controllers\OurPartnersController@indexA');
