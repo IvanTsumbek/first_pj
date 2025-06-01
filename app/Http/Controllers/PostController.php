@@ -63,4 +63,15 @@ $post->update([
 ]);
 dd('updated');
    }
+
+public function delete()     //софт удаление с использованием трейта в модели
+{
+ $post = Post::find(2);
+ $post->delete();
+dd('deleted');
+
+// $post = Post::withTrashed()->find(2);         //восстановление после софт удаления
+//  $post->restore();
+// dd('restored');
+}
 }
