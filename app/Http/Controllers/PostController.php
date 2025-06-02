@@ -24,7 +24,7 @@ class PostController extends Controller
       dump($post->title);
       dd('end');
    }
-   
+
    public function create()
    {
       $postsArr = [
@@ -43,8 +43,7 @@ class PostController extends Controller
             'is_published' => 1,
          ],
       ];
-      foreach ($postsArr as $item) 
-      {
+      foreach ($postsArr as $item) {
          Post::create($item);
       }
       dd('created');
@@ -53,25 +52,72 @@ class PostController extends Controller
    public function update()
    {
       $post = Post::find(22);
-// dd($post->title);
-$post->update([
-   'title' => 'updated',
-            'content' => 'updated', //можно апдейтить только те атрибуты, которые нужно
-            'image' => 'updated one more',
-            // 'likes' => 1000,
-            'is_published' => 0,
-]);
-dd('updated');
+      // dd($post->title);
+      $post->update([
+         'title' => 'updated',
+         'content' => 'updated', //можно апдейтить только те атрибуты, которые нужно
+         'image' => 'updated one more',
+         // 'likes' => 1000,
+         'is_published' => 0,
+      ]);
+      dd('updated');
    }
 
-public function delete()     //софт удаление с использованием трейта в модели
-{
- $post = Post::find(2);
- $post->delete();
-dd('deleted');
-
-// $post = Post::withTrashed()->find(2);         //восстановление после софт удаления
+   public function delete()     //софт удаление с использованием трейта в модели
+   {
+      $post = Post::find(2);
+      $post->delete();
+      dd('deleted');
+      // $post = Post::withTrashed()->find(2);         //восстановление после софт удаления
 //  $post->restore();
 // dd('restored');
-}
+   }
+
+   public function firstOrCreate()         //firstOrCreate        проверит, если есть пропустит, если нет, создаст
+   {
+      $post = Post::firstOrCreate(
+         [
+            'title' => 'some title phpshtorm'
+         ],
+         [
+            'title' => 'some title phpshtorm',
+            'content' => 'some some interesting cintent',
+            'image' => 'some blabla.jpg',
+            'likes' => 50000,
+            'is_published' => 1,
+         ]
+      );
+      dump($post->content);
+      dd('finished');
+   }
+
+   public function updateOrCreate()          //updateOrCreate      проверит, если есть, обновляет только те атрибуты, которые отличаются, если нет создаст
+   {
+      $anotherPost = [
+         'title' => 'some title not phpshtorm',
+         'content' => 'some interesting cintent',
+         'image' => 'updateorcreatee blabla.jpg',
+         'likes' => 500,
+         'is_published' => 0,
+      ];
+
+      $post = Post::updateOrCreate(
+         [
+            'title' => 'some title not phpshtorm'
+         ],
+            $anotherPost
+      );
+      dump($post->title);
+      dd('finished');
+   }
+
+
+
+
+
+
+
+
+
+
 }
