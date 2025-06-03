@@ -9,6 +9,10 @@ class PostController extends Controller
 {
    public function index()
    {
+$posts = Post::all();
+return view('posts', compact('posts'));
+
+
       // $post = Post::find(1); //обращаемся к модели и ее методу и READ с базы по номеру id
       // dd($post);
 
@@ -16,13 +20,13 @@ class PostController extends Controller
       // foreach ($posts as $post){
       //    dump ($post->title);
       // }
-
+      // dd($posts);
       // $posts = Post::where('is_published', 1)->get();      //считываем записи по атрибуту
       // dd($posts);
 
-      $post = Post::where('is_published', 0)->first();      //считываем первую запись по атрибуту
-      dump($post->title);
-      dd('end');
+      // $post = Post::where('is_published', 0)->first();      //считываем первую запись по атрибуту
+      // dump($post->title);
+      // dd('end');
    }
 
    public function create()
@@ -65,7 +69,7 @@ class PostController extends Controller
 
    public function delete()     //софт удаление с использованием трейта в модели
    {
-      $post = Post::find(2);
+      $post = Post::find(4);
       $post->delete();
       dd('deleted');
       // $post = Post::withTrashed()->find(2);         //восстановление после софт удаления
@@ -105,7 +109,7 @@ class PostController extends Controller
          [
             'title' => 'some title not phpshtorm'
          ],
-            $anotherPost
+         $anotherPost
       );
       dump($post->title);
       dd('finished');
