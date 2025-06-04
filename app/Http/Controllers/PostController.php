@@ -10,7 +10,7 @@ class PostController extends Controller
    public function index()
    {
 $posts = Post::all();
-return view('posts', compact('posts'));
+return view('post.index', compact('posts'));
 
 
       // $post = Post::find(1); //обращаемся к модели и ее методу и READ с базы по номеру id
