@@ -1,7 +1,9 @@
 <?php
 // php artisan make:model -m Post                                   создание модели с миграцией с названием Post
-// php artisan make:controller Post                                 создание контроллера названием Post                                    
-                                                       
+// php artisan make:controller Post                                 создание контроллера названием Post       
+// composer require laravel/ui                                      1) подключение bootstrap     
+// php artisan ui bootstrap                                         2) установка bootstrap                       
+// npm install; npm run dev                                         3) установка зависимостей и запуск в режиме разработки   
                                                                                          
                                                        
                                                        
