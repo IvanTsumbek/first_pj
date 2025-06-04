@@ -2,7 +2,7 @@
 @section('content')
 <div>
   @foreach ($posts as $post)
-<div>{{ $post->title }}</div>
+<div>{{ $post->id }}.{{ $post->title }}</div>
   @endforeach
 </div>
 @endsection

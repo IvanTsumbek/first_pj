@@ -31,27 +31,46 @@ return view('post.index', compact('posts'));
 
    public function create()
    {
-      $postsArr = [
-         [
-            'title' => 'phpshtorm',
-            'content' => 'some interesting cintent',
-            'image' => 'blabla.jpg',
-            'likes' => 20,
-            'is_published' => 1,
-         ],
-         [
-            'title' => 'another phpshtorm',
-            'content' => 'another some interesting cintent',
-            'image' => 'another blabla.jpg',
-            'likes' => 50,
-            'is_published' => 1,
-         ],
-      ];
-      foreach ($postsArr as $item) {
-         Post::create($item);
-      }
-      dd('created');
+      return view('post.create');
+      // $postsArr = [
+      //    [
+      //       'title' => 'phpshtorm',
+      //       'content' => 'some interesting cintent',
+      //       'image' => 'blabla.jpg',
+      //       'likes' => 20,
+      //       'is_published' => 1,
+      //    ],
+      //    [
+      //       'title' => 'another phpshtorm',
+      //       'content' => 'another some interesting cintent',
+      //       'image' => 'another blabla.jpg',
+      //       'likes' => 50,
+      //       'is_published' => 1,
+      //    ],
+      // ];
+      // foreach ($postsArr as $item) {
+      //    Post::create($item);
+      // }
+      // dd('created');
    }
+
+   public function store()
+   {
+      $data = request()->validate([
+         'title' => 'string',
+         'content' => 'string',
+         'image' => 'string',
+      ]);
+      Post::create($data);
+      return redirect()->route('post.index');
+   }
+
+   public function show($id)
+   {
+      $post = Post::find($id);
+      dd($post->title);
+   }
+
 
    public function update()
    {
