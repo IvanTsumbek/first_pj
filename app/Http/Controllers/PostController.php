@@ -11,48 +11,14 @@ class PostController extends Controller
    {
 $posts = Post::all();
 return view('post.index', compact('posts'));
-
-
-      // $post = Post::find(1); //обращаемся к модели и ее методу и READ с базы по номеру id
-      // dd($post);
-
-      // $posts = Post::all();                //считываем все записи
-      // foreach ($posts as $post){
-      //    dump ($post->title);
-      // }
-      // dd($posts);
-      // $posts = Post::where('is_published', 1)->get();      //считываем записи по атрибуту
-      // dd($posts);
-
-      // $post = Post::where('is_published', 0)->first();      //считываем первую запись по атрибуту
-      // dump($post->title);
-      // dd('end');
    }
+
 
    public function create()
    {
       return view('post.create');
-      // $postsArr = [
-      //    [
-      //       'title' => 'phpshtorm',
-      //       'content' => 'some interesting cintent',
-      //       'image' => 'blabla.jpg',
-      //       'likes' => 20,
-      //       'is_published' => 1,
-      //    ],
-      //    [
-      //       'title' => 'another phpshtorm',
-      //       'content' => 'another some interesting cintent',
-      //       'image' => 'another blabla.jpg',
-      //       'likes' => 50,
-      //       'is_published' => 1,
-      //    ],
-      // ];
-      // foreach ($postsArr as $item) {
-      //    Post::create($item);
-      // }
-      // dd('created');
    }
+
 
    public function store()
    {
@@ -65,26 +31,30 @@ return view('post.index', compact('posts'));
       return redirect()->route('post.index');
    }
 
-   public function show($id)
-   {
-      $post = Post::find($id);
-      dd($post->title);
+
+   public function show(Post $post)
+   {   
+      return view('post.show', compact('post'));
    }
 
 
-   public function update()
+ public function edit(Post $post)
+   {   
+      return view('post.edit', compact('post'));
+   }
+
+
+   public function update(Post $post)
    {
-      $post = Post::find(22);
-      // dd($post->title);
-      $post->update([
-         'title' => 'updated',
-         'content' => 'updated', //можно апдейтить только те атрибуты, которые нужно
-         'image' => 'updated one more',
-         // 'likes' => 1000,
-         'is_published' => 0,
+   $data = request()->validate([
+         'title' => 'string',
+         'content' => 'string',
+         'image' => 'string',
       ]);
-      dd('updated');
+      $post->update($data);
+            return redirect()->route('post.show', $post->id);
    }
+
 
    public function delete()     //софт удаление с использованием трейта в модели
    {
@@ -96,6 +66,8 @@ return view('post.index', compact('posts'));
 // dd('restored');
    }
 
+
+   
    public function firstOrCreate()         //firstOrCreate        проверит, если есть пропустит, если нет, создаст
    {
       $post = Post::firstOrCreate(
@@ -114,6 +86,8 @@ return view('post.index', compact('posts'));
       dd('finished');
    }
 
+
+
    public function updateOrCreate()          //updateOrCreate      проверит, если есть, обновляет только те атрибуты, которые отличаются, если нет создаст
    {
       $anotherPost = [
@@ -123,24 +97,8 @@ return view('post.index', compact('posts'));
          'likes' => 500,
          'is_published' => 0,
       ];
-
-      $post = Post::updateOrCreate(
-         [
-            'title' => 'some title not phpshtorm'
-         ],
-         $anotherPost
-      );
+      $post = Post::updateOrCreate(['title' => 'some title not phpshtorm'], $anotherPost);
       dump($post->title);
       dd('finished');
    }
-
-
-
-
-
-
-
-
-
-
 }
