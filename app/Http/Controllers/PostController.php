@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
+use App\Models\PostTag;
 use App\Models\Tag;
 use App\Models\Category;
 
@@ -11,18 +12,16 @@ class PostController extends Controller
 {
    public function index()
    {
-$category = Category::find(1);
-$post = Post::find(1);
-$tag = Tag::find(1);
-
-dd($tag->posts);
-
+      $posts = Post::all();
+      return view('post.index', compact('posts'));
    }
 
 
    public function create()
    {
-      return view('post.create');
+      $categories = Category::all();
+      $tags = Tag::all();
+      return view('post.create', compact('categories', 'tags'));
    }
 
 
@@ -32,8 +31,16 @@ dd($tag->posts);
          'title' => 'string',
          'content' => 'string',
          'image' => 'string',
+         'category_id' => '',
+         'tags' => '',
       ]);
-      Post::create($data);
+      $tags = $data['tags'];
+      unset($data['tags']);
+
+    $post = Post::create($data);
+
+    $post->tags()->attach($tags);
+
       return redirect()->route('post.index');
    }
 
@@ -46,7 +53,9 @@ dd($tag->posts);
 
    public function edit(Post $post)
    {
-      return view('post.edit', compact('post'));
+      $categories = Category::all();
+       $tags = Tag::all();
+      return view('post.edit', compact('post', 'categories', 'tags'));
    }
 
 
@@ -56,8 +65,14 @@ dd($tag->posts);
          'title' => 'string',
          'content' => 'string',
          'image' => 'string',
+         'category_id' => '',
+          'tags' => '',
       ]);
+        $tags = $data['tags'];
+      unset($data['tags']);
+
       $post->update($data);
+      $post->tags()->sync( $tags);  //удаляет все старые привязки и создает новые
       return redirect()->route('post.show', $post->id);
    }
 
