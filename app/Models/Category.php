@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-   public function posts()
-   {
-    return $this->hasMany(Post::class, 'category_id', 'id');
-   }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);   //при многие к одному
+    }
 }
