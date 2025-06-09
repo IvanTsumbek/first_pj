@@ -1,20 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Post;
+use BaseController;
 use App\Models\Post;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\UpdateRequest;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
   public function __invoke(UpdateRequest $request, Post $post)
   {
     $data = $request->validated();
-    $tags = $data['tags'];
-    unset($data['tags']);
 
-    $post->update($data);
-    $post->tags()->sync($tags);  //удаляет все старые привязки и создает новые
+    $this->service->update($post, $data);
+   
     return redirect()->route('post.show', $post->id);
   }
 }

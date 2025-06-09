@@ -1,22 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Post;
-use App\Http\Requests\Post\StoreRequest;
+use BaseController;
 use App\Models\Post;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\StoreRequest;
 
-class StoreController extends Controller
+class StoreController extends BaseController
 {
-public function __invoke(StoreRequest $request)
-{
-$data = $request->validated();
-      $tags = $data['tags'];
-      unset($data['tags']);
+  public function __invoke(StoreRequest $request)
+  {
+    $data = $request->validated();
 
-    $post = Post::create($data);
+    $this->service->store($data);
 
-    $post->tags()->attach($tags);
-
-      return redirect()->route('post.index');
-}
+    return redirect()->route('post.index');
+  }
 }

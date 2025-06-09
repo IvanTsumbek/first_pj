@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Post;
+use BaseController;
 use App\Models\Post;
-use App\Http\Controllers\Controller;
 
-class ShowController extends Controller
+class ShowController extends BaseController
 {
 public function __invoke(Post $post)
 {

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Post;
+use BaseController;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
 public function __invoke()
 {
