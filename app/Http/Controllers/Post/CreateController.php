@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Post;
 use App\Models\Tag;
 use App\Models\Category;
-use BaseController;
+// use BaseController;
 
 class CreateController extends BaseController
 {

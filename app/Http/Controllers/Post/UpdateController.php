@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Post;
-use BaseController;
+// use BaseController;
 use App\Models\Post;
 use App\Http\Requests\Post\UpdateRequest;
 
