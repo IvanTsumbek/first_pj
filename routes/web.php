@@ -1,7 +1,6 @@
 <?php
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\MainController;
 use App\Http\Controllers\Post\EditController;
 use App\Http\Controllers\Post\ShowController;
 use App\Http\Controllers\Post\IndexController;
@@ -10,7 +9,7 @@ use App\Http\Controllers\Post\CreateController;
 use App\Http\Controllers\Post\UpdateController;
 use App\Http\Controllers\Post\DestroyController;
 
-Route::get('/', function () {return 'hello';});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/posts', IndexController::class)->name('post.index');
 Route::get('/posts/create', CreateController::class)->name('post.create');
@@ -53,3 +52,11 @@ Route::get('/contacts', 'App\Http\Controllers\ContactController@index')->name('c
 // Route::get('/posts/delete', 'App\Http\Controllers\PostController@delete');
 // Route::get('/posts/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
 // Route::get('/posts/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
